@@ -1,0 +1,73 @@
+.evolution-page {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 50%;
+  width: 50%;
+  min-height: 75%;
+  height: 75%;
+  padding: 10px;
+  background-color: #bff9ff;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  margin: 0 auto;
+}
+
+.evolution-chain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  list-style: none;
+  color: black;
+}
+
+.chain-image {
+  height: 120px;
+}
+
+.chain-icon {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.trigger {
+  color: blueviolet;
+  font-style: italic;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1024px) {
+  .evolution-page {
+    flex-direction: column;
+  }
+
+  .chain-icon {
+    transform: rotateZ(90deg);
+  }
+
+  .chain-icon .fa {
+    font-size: 70px !important;
+  }
+  .trigger {
+    transform: rotateZ(-90deg) translateX(-30px);
+    font-size: 25px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .evolution-page {
+    min-width: 85%;
+    width: 85%;
+  }
+
+  .chain-icon .fa {
+    font-size: 45px !important;
+  }
+  .trigger {
+    font-size: 18px;
+    transform: rotateZ(-90deg) translateX(-15px);
+  }
+}
