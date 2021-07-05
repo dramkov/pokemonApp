@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-free": "^5.15.3",
     "axios": "^0.21.1",
     "cra-template": "1.1.2",
+    "keymirror": "^0.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-infinite-scroll-component": "^6.1.0",
@@ -14,7 +15,8 @@
     "react-scripts": "4.0.3",
     "react-spinners": "^0.11.0",
     "redux": "^4.1.0",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "sass": "^1.35.1"
   },
   "scripts": {
     "start": "react-scripts start",

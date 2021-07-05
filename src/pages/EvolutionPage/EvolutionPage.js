@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-import Loader from '../../components/Loader/Loader';
+import { MemoizedLoader } from '../../components/Loader/Loader';
 import { fetchPokemonEvolution } from '../../store/actions/pokemons';
-import './EvolutionPage.css';
 
 const EvolutionPage = (props) => {
   const id = props.match.params.id;
@@ -25,6 +24,7 @@ const EvolutionPage = (props) => {
       }
       setIsLoading(false);
     };
+
     render();
   }, [dispatch, id]);
 
@@ -43,26 +43,26 @@ const EvolutionPage = (props) => {
 
   return (
     <>
-      {isLoading && <Loader />}
-      <div className="evolution-page">
+      {isLoading && <MemoizedLoader />}
+      <div className='evolution-page'>
         {render && (
           <>
-            <Link to={`/pokemon/${id1}`} className="evolution-chain">
-              <h2 className="chain-name">{evolution.chain.species.name}</h2>
+            <Link to={`/pokemon/${id1}`} className='evolution-chain'>
+              <h2 className='chain-name'>{evolution.chain.species.name}</h2>
               <img
-                className="chain-image"
+                className='chain-image'
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id1}.svg`}
-                alt="Pokemon"
+                alt='Pokemon'
               ></img>
             </Link>
             {evolution.chain.evolves_to && (
               <>
-                <div className="chain-icon">
+                <div className='chain-icon'>
                   <i
-                    className="fa fa-long-arrow-alt-right"
+                    className='fa fa-long-arrow-alt-right'
                     style={{ fontSize: '32px' }}
                   />
-                  <p className="trigger">
+                  <p className='trigger'>
                     {' '}
                     {
                       evolution.chain.evolves_to[0].evolution_details[0].trigger
@@ -71,40 +71,40 @@ const EvolutionPage = (props) => {
                   </p>
                 </div>
 
-                <Link to={`/pokemon/${id2}`} className="evolution-chain">
-                  <h2 className="chain-name">
+                <Link to={`/pokemon/${id2}`} className='evolution-chain'>
+                  <h2 className='chain-name'>
                     {evolution.chain.evolves_to[0].species.name}
                   </h2>
                   <img
-                    className="chain-image"
+                    className='chain-image'
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id2}.svg`}
-                    alt="Pokemon"
+                    alt='Pokemon'
                   ></img>
                 </Link>
               </>
             )}
             {!!evolution.chain.evolves_to[0].evolves_to[0] && (
               <>
-                <div className="chain-icon">
+                <div className='chain-icon'>
                   <i
-                    className="fa fa-long-arrow-alt-right"
+                    className='fa fa-long-arrow-alt-right'
                     style={{ fontSize: '32px' }}
                   />
-                  <p className="trigger">
+                  <p className='trigger'>
                     {
                       evolution.chain.evolves_to[0].evolves_to[0]
                         .evolution_details[0].trigger.name
                     }
                   </p>
                 </div>
-                <Link to={`/pokemon/${id3}`} className="evolution-chain">
-                  <h2 className="chain-name">
+                <Link to={`/pokemon/${id3}`} className='evolution-chain'>
+                  <h2 className='chain-name'>
                     {evolution.chain.evolves_to[0].evolves_to[0].species.name}
                   </h2>
                   <img
-                    className="chain-image"
+                    className='chain-image'
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id3}.svg`}
-                    alt="Pokemon"
+                    alt='Pokemon'
                   ></img>
                 </Link>
               </>

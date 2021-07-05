@@ -1,12 +1,12 @@
 import React, { Suspense, lazy } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
-import Loader from '../components/Loader/Loader';
+import { MemoizedLoader } from '../components/Loader/Loader';
 
 const BASE_URL = '/main';
 
 export const renderRoutes = (routes = []) => (
-  <Suspense fallback={<Loader />}>
+  <Suspense fallback={<MemoizedLoader />}>
     <Switch>
       {routes.map((route, i) => {
         const Component = route.component;

@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-import Loader from '../Loader/Loader';
+import { MemoizedLoader } from '../Loader/Loader';
 import PokemonCell from '../PokemonCell/PokemonCell';
 import {
   fetchPokemonByType,
   fetchPokemons,
 } from '../../store/actions/pokemons';
-import './PokemonList.css';
+import { SHOW_ALL_FILTER_ITEM, ZERO_LENGTH } from '../../constants/constants';
+import useAsyncError from '../../apis/hook/AsyncError';
 
 const PokemonList = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,8 +20,8 @@ const PokemonList = () => {
   );
   const count = useSelector((state) => state.pokemon.count);
   const filter = useSelector((state) => state.pokemon.filter);
-
   const dispatch = useDispatch();
+  const throwError = useAsyncError();
 
   const loadMore = () => {
     if (section < 720) {
@@ -35,20 +36,20 @@ const PokemonList = () => {
       try {
         await dispatch(fetchPokemons(section));
       } catch (e) {
-        throw Error(e.message);
+        throwError(new Error(e.message));
       }
       setIsLoading(false);
     };
 
     render();
-  }, [dispatch, section]);
+  }, [dispatch, throwError, section]);
 
   useEffect(() => {
     setIsLoading(true);
 
     const filtering = async () => {
       try {
-        if (filter === 'show_all') {
+        if (filter === SHOW_ALL_FILTER_ITEM) {
           setIsLoading(false);
 
           return;
@@ -56,24 +57,24 @@ const PokemonList = () => {
           await dispatch(fetchPokemonByType(filter));
         }
       } catch (e) {
-        throw Error(e.message);
+        throwError(new Error(e.message));
       }
       setIsLoading(false);
     };
 
     filtering();
-  }, [dispatch, filter]);
+  }, [dispatch, throwError, filter]);
 
   const renderLoader = () => {
     if (section >= 720) {
       return;
     }
 
-    return <Loader />;
+    return <MemoizedLoader />;
   };
 
   const renderPokemons = () => {
-    if (filter === 'show_all') {
+    if (filter === SHOW_ALL_FILTER_ITEM) {
       return pokemonList.map((pokemon) => {
         return (
           <PokemonCell key={pokemon.id} url={pokemon.url} id={pokemon.id} />
@@ -87,16 +88,19 @@ const PokemonList = () => {
 
   return (
     <>
-      {isLoading && <Loader />}
-      {pokemonList.length === 0 && pokemonListByType.length === 0 ? (
-        <div className="pokemon-list"></div>
+      {isLoading && <MemoizedLoader />}
+      {pokemonList.length === ZERO_LENGTH &&
+      pokemonListByType.length === ZERO_LENGTH ? (
+        <div className='pokemon-list'></div>
       ) : (
         <div>
           <InfiniteScroll
-            className="pokemon-list"
+            className='pokemon-list'
             dataLength={pokemonList.length}
             next={loadMore}
-            hasMore={pokemonList.length < count && filter === 'show_all'}
+            hasMore={
+              pokemonList.length < count && filter === SHOW_ALL_FILTER_ITEM
+            }
             height={window.innerHeight * 0.675}
             loader={renderLoader()}
           >

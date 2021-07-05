@@ -76,12 +76,13 @@ table.stats {
   border: 1px solid #888;
   margin-top: 20px;
   transition: all 0.3s ease-in;
+
+  &:hover {
+    color: #fff;
+    background: rgb(173, 173, 6);
+  }
 }
 
-.evolution h3:hover {
-  color: #fff;
-  background: rgb(173, 173, 6);
-}
 .stats-value {
   margin-left: auto;
   margin-right: 40px;

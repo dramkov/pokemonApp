@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import pokemonReducer from './store/reducers/pokemons';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './index.css';
+import './index.scss';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
